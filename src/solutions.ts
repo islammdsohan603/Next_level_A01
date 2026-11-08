@@ -1,9 +1,16 @@
-// Problem 1
+// Problem 2
 
-const multiplyValue = (value: number, multiplier: number = 2) => {
-  return value * multiplier;
-};
+function processInput(value: string | number | boolean): string | number {
+  if (typeof value === "string") {
+    return value.trim().toLowerCase();
+  } else if (typeof value === "number") {
+    return value * 10;
+  } else {
+    return value ? "Active" : "Inactive";
+  }
+}
 
-console.log(multiplyValue(10));
-console.log(multiplyValue(10, 5));
-console.log(multiplyValue(7, 0));
+console.log(processInput("  TypeScript  "));
+console.log(processInput(7));
+console.log(processInput(true));
+console.log(processInput(false));
