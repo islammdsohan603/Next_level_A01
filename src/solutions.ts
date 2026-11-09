@@ -1,31 +1,25 @@
-class Employee {
-  protected name: string;
-  private baseSalary: number;
+async function validateAgeAsync(age: number): Promise<string> {
+  return new Promise<string>((resolve, reject) => {
+    if (age < 18) {
+      reject(new Error("Access Denied: Must be 18 or older"));
+      return;
+    }
 
-  constructor(name: string, baseSalary: number) {
-    this.name = name;
-    this.baseSalary = baseSalary;
-  }
+    setTimeout(() => {
+      resolve("Access Granted");
+    }, 1000);
+  });
+}
 
-  getDetails(): string {
-    return `Employee: ${this.name}, Base Salary: ${this.baseSalary}`;
+async function main(): Promise<void> {
+  try {
+    const result = await validateAgeAsync(20);
+    console.log(result);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
   }
 }
 
-class Manager extends Employee {
-  private department: string;
-
-  constructor(name: string, baseSalary: number, department: string) {
-    super(name, baseSalary);
-    this.department = department;
-  }
-
-  getRoleInfo(): string {
-    return `Manager of ${this.department}: ${this.name}`;
-  }
-}
-
-const manager = new Manager("Alice", 50000, "Engineering");
-
-console.log(manager.getDetails());
-console.log(manager.getRoleInfo());
+main();
