@@ -1,7 +1,22 @@
-const concatenateArrays = <T>(...arrays: T[][]): T[] => {
-  return [...arrays.flat()];
-};
+interface Course {
+  title: string;
+  students: number;
+  isPublished: boolean;
+}
 
-console.log(concatenateArrays(["a", "b"], ["c", "d"]));
+function getPopularCourses(courses: Course[], minStudents: number): Course[] {
+  const studentsFilter = courses.filter((cours, indx) => {
+    return cours.isPublished === true && cours.students >= minStudents;
+  });
 
-console.log(concatenateArrays([1, 2], [3, 4], [5]));
+  return studentsFilter;
+}
+
+const courses = [
+  { title: "TypeScript Mastery", students: 120, isPublished: true },
+  { title: "Draft Course", students: 200, isPublished: false },
+  { title: "Basic HTML", students: 45, isPublished: true },
+  { title: "Next.js Pro", students: 85, isPublished: true },
+];
+
+console.log(getPopularCourses(courses, 80));
