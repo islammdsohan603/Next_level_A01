@@ -1,18 +1,31 @@
-type User = {
-  id: number;
-  name: string;
-  role: string;
-};
+class Employee {
+  protected name: string;
+  private baseSalary: number;
 
-function pluckValues<T, k extends keyof T>(items: T[], key: k): T[k][] {
-  return items.map((item) => item[key]);
+  constructor(name: string, baseSalary: number) {
+    this.name = name;
+    this.baseSalary = baseSalary;
+  }
+
+  getDetails(): string {
+    return `Employee: ${this.name}, Base Salary: ${this.baseSalary}`;
+  }
 }
 
-const users: User[] = [
-  { id: 1, name: "Rakib", role: "Admin" },
-  { id: 2, name: "Sadia", role: "Editor" },
-  { id: 3, name: "Tariq", role: "Subscriber" },
-];
+class Manager extends Employee {
+  private department: string;
 
-console.log(pluckValues(users, "name"));
-console.log(pluckValues(users, "id"));
+  constructor(name: string, baseSalary: number, department: string) {
+    super(name, baseSalary);
+    this.department = department;
+  }
+
+  getRoleInfo(): string {
+    return `Manager of ${this.department}: ${this.name}`;
+  }
+}
+
+const manager = new Manager("Alice", 50000, "Engineering");
+
+console.log(manager.getDetails());
+console.log(manager.getRoleInfo());
